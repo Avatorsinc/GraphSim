@@ -1,0 +1,41 @@
+id: vendor.intune.update_ring
+name: Windows Update Ring
+vendor: microsoft
+category: mdm
+description: Windows Update for Business policy — controls feature/quality update deferrals, deadlines, and active hours.
+icon: intune_update
+capabilities: [wufb, deferral, deadlines]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  servicingChannel: general_availability
+configSchema:
+  type: object
+  title: Update Ring
+  properties:
+    name: { type: string }
+    servicingChannel:
+      type: string
+      enum: [general_availability, semi_annual, ltsc, dev_channel, beta_channel, release_preview]
+    qualityUpdateDeferralDays: { type: integer, default: 0, maximum: 30 }
+    featureUpdateDeferralDays: { type: integer, default: 0, maximum: 365 }
+    qualityUpdateDeadlineDays: { type: integer }
+    featureUpdateDeadlineDays: { type: integer }
+    gracePeriodDays: { type: integer }
+    autoRebootDeadlineDays: { type: integer }
+    activeHoursStart: { type: string, default: "08:00" }
+    activeHoursEnd: { type: string, default: "17:00" }
+    automaticUpdateMode:
+      type: string
+      enum: [notify_download, auto_install_at_maintenance, auto_install_and_reboot, auto_install_and_reboot_at_maintenance, auto_install_and_reboot_without_user_control, auto_install_and_reboot_without_end_user_control]
+    driverUpdates: { type: string, enum: [allow, block] }
+    microsoftProductUpdates: { type: string, enum: [allow, block] }
+    delivery:
+      type: object
+      properties:
+        deliveryOptimization: { type: string, enum: [http_only, group, internet_peers, simple, bypass] }
+    assignments:
+      type: object
+      properties:
+        include: { type: array, items: { type: string } }
+        exclude: { type: array, items: { type: string } }

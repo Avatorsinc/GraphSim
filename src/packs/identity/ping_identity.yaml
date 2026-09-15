@@ -1,0 +1,21 @@
+id: identity.ping
+name: Ping Identity
+vendor: ping
+category: identity
+description: Ping Identity — PingOne, PingFederate, PingAccess
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Ping Identity
+  properties:
+    product:
+      type: string
+      title: Product
+      enum: ["", "PingOne", "PingFederate", "PingAccess", "PingID", "PingDirectory"]
+    note:
+      type: string
+      title: Note

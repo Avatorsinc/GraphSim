@@ -1,0 +1,24 @@
+id: apps.api_service
+name: API / Service
+vendor: builtin
+category: apps
+description: Backend API or microservice
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: API / Service
+  properties:
+    endpoint:
+      type: string
+      title: Endpoint URL
+    protocol:
+      type: string
+      title: Protocol
+      enum: ["", "REST", "GraphQL", "gRPC", "SOAP", "WebSocket"]
+    note:
+      type: string
+      title: Note

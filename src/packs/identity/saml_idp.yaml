@@ -1,0 +1,27 @@
+id: identity.saml_idp
+name: SAML IdP
+vendor: builtin
+category: identity
+description: Generic SAML 2.0 Identity Provider
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: SAML IdP
+  properties:
+    entityId:
+      type: string
+      title: Entity ID
+    ssoUrl:
+      type: string
+      title: SSO URL
+    protocol:
+      type: string
+      title: Protocol
+      enum: ["", "SAML 2.0", "WS-Federation", "Both"]
+    note:
+      type: string
+      title: Note

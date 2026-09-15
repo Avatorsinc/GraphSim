@@ -1,0 +1,56 @@
+id: vendor.entra.conditional_access
+name: Entra ID Conditional Access
+vendor: microsoft
+category: identity
+description: Microsoft Entra ID (Azure AD) Conditional Access. Policies on user/group/app/device-state evaluated at sign-in.
+icon: entra_ca
+capabilities: [conditional_access, identity, mfa, device_compliance]
+evaluator: conditional_access
+interfaces: []
+defaultConfig:
+  policies: []
+configSchema:
+  type: object
+  title: Conditional Access
+  properties:
+    policies:
+      type: array
+      title: Policies
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          name: { type: string }
+          state: { type: string, enum: [enabled, disabled, report_only] }
+          assignments:
+            type: object
+            properties:
+              users:
+                type: object
+                properties:
+                  include: { type: array, items: { type: string } }
+                  exclude: { type: array, items: { type: string } }
+              cloudApps: { type: array, items: { type: string } }
+              conditions:
+                type: object
+                properties:
+                  signInRiskLevels: { type: array, items: { type: string, enum: [low, medium, high] } }
+                  userRiskLevels: { type: array, items: { type: string, enum: [low, medium, high] } }
+                  platforms: { type: array, items: { type: string, enum: [android, ios, windows, macos, linux] } }
+                  locations: { type: array, items: { type: string } }
+                  clientApps: { type: array, items: { type: string } }
+                  devices:
+                    type: object
+                    properties:
+                      requireCompliant: { type: boolean }
+                      requireHybridJoined: { type: boolean }
+          grantControls:
+            type: object
+            properties:
+              operator: { type: string, enum: [AND, OR] }
+              builtIn:
+                type: array
+                items:
+                  type: string
+                  enum: [block, mfa, compliantDevice, hybridJoinedDevice, approvedApp, appProtectionPolicy, passwordChange]
+        required: [id, name, state]

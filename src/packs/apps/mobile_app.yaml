@@ -1,0 +1,25 @@
+id: apps.mobile_app
+name: Mobile App
+vendor: builtin
+category: apps
+description: Generic mobile application
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  platform: ""
+  note: ""
+configSchema:
+  type: object
+  title: Mobile App
+  properties:
+    platform:
+      type: string
+      title: Platform
+      enum: ["", "Android", "iOS", "Cross-platform"]
+    appId:
+      type: string
+      title: App ID / Bundle ID
+    note:
+      type: string
+      title: Note

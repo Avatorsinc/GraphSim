@@ -1,0 +1,25 @@
+id: identity.radius
+name: RADIUS Server
+vendor: builtin
+category: identity
+description: RADIUS authentication server (NPS, FreeRADIUS, etc.)
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: RADIUS Server
+  properties:
+    implementation:
+      type: string
+      title: Implementation
+      enum: ["", "Windows NPS", "FreeRADIUS", "Cisco ISE", "Aruba ClearPass", "Juniper Steel-Belted", "Other"]
+    port:
+      type: number
+      title: Port
+      description: "Default: 1812"
+    note:
+      type: string
+      title: Note

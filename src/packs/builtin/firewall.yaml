@@ -1,0 +1,70 @@
+id: generic.firewall
+name: Stateful Firewall
+vendor: builtin
+category: firewall
+description: Generic stateful firewall with ordered ACL. Default-deny if no rule matches.
+icon: firewall
+capabilities: [stateful_fw, acl, nat]
+evaluator: stateful_firewall
+interfaces:
+  - { name: wan, type: ethernet }
+  - { name: lan, type: ethernet }
+  - { name: dmz, type: ethernet }
+defaultConfig:
+  defaultAction: deny
+  rules:
+    - id: r1
+      priority: 10
+      direction: both
+      match: { src: any, dst: any, proto: any }
+      action: deny
+      log: true
+configSchema:
+  type: object
+  title: Firewall
+  properties:
+    defaultAction:
+      type: string
+      title: Default Action
+      enum: [allow, deny]
+      default: deny
+    rules:
+      type: array
+      title: Rules (evaluated in priority order, low → high)
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          priority: { type: integer }
+          direction:
+            type: string
+            enum: [in, out, both]
+            default: both
+          match:
+            type: object
+            properties:
+              src: { type: string, description: "CIDR, IP, or 'any'" }
+              dst: { type: string, description: "CIDR, IP, or 'any'" }
+              proto:
+                type: string
+                enum: [tcp, udp, icmp, any]
+              port: { type: string, description: "single, range 80-90, or 'any'" }
+              app: { type: string }
+              identity: { type: string, description: "identity id or group" }
+          action:
+            type: string
+            enum: [allow, deny, drop, log]
+          log: { type: boolean }
+          comment: { type: string }
+        required: [id, priority, action]
+    natRules:
+      type: array
+      title: NAT Rules (optional)
+      items:
+        type: object
+        properties:
+          kind:
+            type: string
+            enum: [snat, dnat, masquerade]
+          match: { type: object }
+          translate: { type: object }

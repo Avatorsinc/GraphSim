@@ -1,0 +1,38 @@
+id: vendor.suremdm.app_policy
+name: SureMDM App Policy
+vendor: 42gears
+category: mdm
+description: App management — whitelist/blacklist, mandatory installs, auto-updates, Play Store / VPP / managed config.
+icon: suremdm_app
+capabilities: [app_management, vpp, mam, managed_config]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  policyType: whitelist
+configSchema:
+  type: object
+  title: App Policy
+  properties:
+    name: { type: string }
+    policyType:
+      type: string
+      enum: [whitelist, blacklist, mandatory_install, allow_install, block_install, auto_update]
+    platform: { type: string, enum: [android, ios, windows] }
+    apps:
+      type: array
+      items:
+        type: object
+        properties:
+          packageName: { type: string }
+          displayName: { type: string }
+          version: { type: string }
+          source: { type: string, enum: [play_store, app_store, managed_play, vpp, custom_apk, ipa, msi, msix] }
+          managedConfig:
+            type: object
+            additionalProperties: true
+            description: "Android managed configuration / iOS app config"
+    silentInstall: { type: boolean }
+    allowDowngrade: { type: boolean }
+    deployTo:
+      type: array
+      items: { type: string }

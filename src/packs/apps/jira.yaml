@@ -1,0 +1,21 @@
+id: apps.jira
+name: Jira
+vendor: atlassian
+category: apps
+description: Atlassian Jira project management
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Jira
+  properties:
+    deployment:
+      type: string
+      title: Deployment
+      enum: ["", "Cloud", "Data Center", "Server"]
+    note:
+      type: string
+      title: Note

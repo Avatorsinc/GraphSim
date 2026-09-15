@@ -1,0 +1,57 @@
+id: vendor.suremdm.enrollment
+name: SureMDM Enrollment Config
+vendor: 42gears
+category: mdm
+description: Enrollment configuration — QR/Zero-touch/Knox Mobile Enrollment/Apple DEP/AfW. Decides what profiles bind on first enrollment.
+icon: suremdm_enrollment
+capabilities: [zero_touch, kme, dep, afw, qr_enrollment, agent_install]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  method: agent
+configSchema:
+  type: object
+  title: Enrollment Config
+  properties:
+    name: { type: string }
+    method:
+      type: string
+      enum:
+        - agent
+        - qr_code
+        - zero_touch
+        - knox_mobile_enrollment
+        - apple_dep
+        - apple_school_mgr
+        - afw
+        - device_owner_dpc
+        - profile_owner
+    platform: { type: string, enum: [android, ios, windows, chromeos] }
+    autoAssignedTags:
+      type: array
+      title: Auto-applied Tags on Enrollment
+      items: { type: string }
+    autoAssignedGroups:
+      type: array
+      title: Auto-assigned Groups
+      items: { type: string }
+    initialProfiles:
+      type: array
+      title: Profiles to Push at Enrollment
+      items: { type: string }
+    welcomeMessage: { type: string }
+    requireUserAuth: { type: boolean }
+    authProvider: { type: string, enum: [local, ad, azure_ad, saml, oauth, google_workspace] }
+    knoxConfig:
+      type: object
+      properties:
+        kmeProfileId: { type: string }
+        knoxKey: { type: string }
+    appleDep:
+      type: object
+      properties:
+        depToken: { type: string }
+        skipSetupItems: { type: array, items: { type: string } }
+        supervised: { type: boolean }
+        mandatory: { type: boolean }
+        removable: { type: boolean }

@@ -1,0 +1,21 @@
+id: apps.power_platform
+name: Power Platform
+vendor: microsoft
+category: apps
+description: Microsoft Power Apps, Power Automate, Power BI
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Power Platform
+  properties:
+    component:
+      type: string
+      title: Component
+      enum: ["", "Power Apps", "Power Automate", "Power BI", "Power Pages", "Copilot Studio"]
+    note:
+      type: string
+      title: Note

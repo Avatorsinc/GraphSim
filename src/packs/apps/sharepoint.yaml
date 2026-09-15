@@ -1,0 +1,17 @@
+id: apps.sharepoint
+name: SharePoint / OneDrive
+vendor: microsoft
+category: apps
+description: Microsoft SharePoint Online / OneDrive for Business
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: SharePoint / OneDrive
+  properties:
+    note:
+      type: string
+      title: Note

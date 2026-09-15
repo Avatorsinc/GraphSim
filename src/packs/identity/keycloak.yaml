@@ -1,0 +1,27 @@
+id: identity.keycloak
+name: Keycloak
+vendor: redhat
+category: identity
+description: Keycloak — open-source IAM with SSO, OIDC, SAML
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Keycloak
+  properties:
+    realm:
+      type: string
+      title: Realm
+    protocols:
+      type: array
+      title: Protocols
+      items:
+        type: string
+        enum: ["OpenID Connect", "SAML 2.0", "OAuth 2.0"]
+      uniqueItems: true
+    note:
+      type: string
+      title: Note

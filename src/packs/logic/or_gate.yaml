@@ -1,0 +1,19 @@
+id: logic.or_gate
+name: OR
+vendor: builtin
+category: logic
+description: OR gate — any input path satisfies the condition
+evaluator: passthrough
+interfaces:
+  - { name: in1, type: virtual }
+  - { name: in2, type: virtual }
+  - { name: out, type: virtual }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: OR Gate
+  properties:
+    note:
+      type: string
+      title: Note

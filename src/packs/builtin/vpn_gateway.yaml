@@ -1,0 +1,49 @@
+id: generic.vpn_gateway
+name: VPN Gateway
+vendor: builtin
+category: l3
+description: Site-to-site VPN gateway (IPsec). Terminates tunnels between sites/clouds.
+icon: vpn_gateway
+capabilities: [vpn_ipsec, vpn_ssl, routing]
+evaluator: vpn_terminator
+interfaces:
+  - { name: wan, type: ethernet }
+  - { name: lan, type: ethernet }
+  - { name: tunnel0, type: tunnel }
+defaultConfig:
+  publicIp: ""
+  tunnels: []
+  routes: []
+configSchema:
+  type: object
+  title: VPN Gateway
+  properties:
+    publicIp: { type: string, title: Public IP }
+    tunnels:
+      type: array
+      title: IPsec Tunnels
+      items:
+        type: object
+        properties:
+          name: { type: string }
+          peerIp: { type: string, title: Peer Public IP }
+          presharedKey: { type: string, format: password }
+          ikeVersion: { type: string, enum: [ikev1, ikev2], default: ikev2 }
+          encryption:
+            type: string
+            enum: [aes128, aes256, aes-gcm-128, aes-gcm-256]
+            default: aes256
+          dh: { type: string, enum: [group2, group14, group19, group20] }
+          localCidrs: { type: array, items: { type: string } }
+          remoteCidrs: { type: array, items: { type: string } }
+        required: [name, peerIp]
+    routes:
+      type: array
+      title: Routes (post-tunnel)
+      items:
+        type: object
+        properties:
+          prefix: { type: string }
+          nextHop: { type: string }
+          interface: { type: string }
+        required: [prefix, nextHop]

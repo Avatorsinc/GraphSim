@@ -1,0 +1,21 @@
+id: identity.clearpass
+name: Aruba ClearPass
+vendor: aruba
+category: identity
+description: HPE Aruba ClearPass Policy Manager — NAC, RADIUS, device profiling
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Aruba ClearPass
+  properties:
+    module:
+      type: string
+      title: Module
+      enum: ["", "Policy Manager", "Guest", "OnGuard", "Insight", "Device Insight"]
+    note:
+      type: string
+      title: Note

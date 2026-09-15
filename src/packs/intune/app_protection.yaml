@@ -1,0 +1,67 @@
+id: vendor.intune.app_protection
+name: App Protection Policy (MAM)
+vendor: microsoft
+category: mdm
+description: Mobile Application Management — protects corporate data inside apps without enrolling the device. iOS/Android.
+icon: intune_mam
+capabilities: [mam, dlp, app_config]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  platform: ios
+configSchema:
+  type: object
+  title: App Protection Policy
+  properties:
+    name: { type: string }
+    platform: { type: string, enum: [ios, android] }
+    targetApps:
+      type: array
+      title: Targeted Apps
+      items: { type: string }
+    dataProtection:
+      type: object
+      properties:
+        backupOrgData: { type: string, enum: [allow, block] }
+        sendOrgDataToOtherApps:
+          type: string
+          enum: [allApps, policyManagedApps, policyManagedAppsWithOSSharing, none]
+        receiveDataFromOtherApps:
+          type: string
+          enum: [allApps, policyManagedApps, policyManagedAndUnmanagedApps, none]
+        saveCopiesOfOrgData: { type: string, enum: [allow, block] }
+        allowedSaveLocations:
+          type: array
+          items: { type: string, enum: [oneDriveForBusiness, sharePoint, photoLibrary, localStorage, box] }
+        restrictCutCopyPaste:
+          type: string
+          enum: [anyApp, policyManagedApps, policyManagedAppsWithPasteIn, blocked]
+        screenCaptureAllowed: { type: boolean }
+        thirdPartyKeyboards: { type: string, enum: [allow, block] }
+        encryptOrgData: { type: boolean }
+        printOrgData: { type: boolean }
+    accessRequirements:
+      type: object
+      properties:
+        pinRequired: { type: boolean }
+        pinType: { type: string, enum: [numeric, passcode] }
+        simplePinAllowed: { type: boolean }
+        pinMinLength: { type: integer, default: 4 }
+        biometricsAllowed: { type: boolean }
+        appPinIfDevicePinExists: { type: boolean }
+        offlineGracePeriodMin: { type: integer }
+        offlineWipeAfterDays: { type: integer }
+    conditionalLaunch:
+      type: array
+      title: Conditional Launch
+      items:
+        type: object
+        properties:
+          condition: { type: string, enum: [maxPinAttempts, offlineGracePeriod, jailbrokenRooted, minOSVersion, minPatchVersion, minAppVersion, deviceManufacturer, deviceModel, threatLevel] }
+          value: { type: string }
+          action: { type: string, enum: [block, wipe, warn] }
+    assignments:
+      type: object
+      properties:
+        include: { type: array, items: { type: string } }
+        exclude: { type: array, items: { type: string } }

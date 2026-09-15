@@ -1,0 +1,52 @@
+id: vendor.intune.config_profile
+name: Intune Configuration Profile
+vendor: microsoft
+category: mdm
+description: Device configuration profile (settings catalog / templates / OMA-URI). Pushes settings like Wi-Fi, VPN, certs, restrictions.
+icon: intune_config
+capabilities: [device_config, oma_uri, settings_catalog]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  platform: windows10
+  template: settings_catalog
+  settings: {}
+configSchema:
+  type: object
+  title: Configuration Profile
+  properties:
+    platform:
+      type: string
+      enum: [windows10, windows11, ios, ipados, android_enterprise, android_aosp, macos, linux]
+    template:
+      type: string
+      enum: [settings_catalog, device_restrictions, endpoint_protection, identity_protection, kiosk, vpn, wifi, certificate_pkcs, certificate_scep, certificate_trusted_root, email, custom_oma_uri]
+    name: { type: string }
+    description: { type: string }
+    assignments:
+      type: object
+      properties:
+        include: { type: array, items: { type: string } }
+        exclude: { type: array, items: { type: string } }
+        applicabilityRules:
+          type: array
+          items:
+            type: object
+            properties:
+              property: { type: string, enum: [osVersion, ramSize, memorySize, manufacturer, model] }
+              op: { type: string, enum: [equals, notEquals, greaterEqual, lessEqual] }
+              value: { type: string }
+    settings:
+      type: object
+      description: "Map of setting name → value (free-form for sim)"
+      additionalProperties: true
+    omaUri:
+      type: array
+      title: OMA-URI Settings (for Custom template)
+      items:
+        type: object
+        properties:
+          name: { type: string }
+          omaUri: { type: string }
+          dataType: { type: string, enum: [string, integer, boolean, base64, datetime, "string-xml"] }
+          value: { type: string }

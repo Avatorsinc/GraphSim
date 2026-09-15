@@ -1,0 +1,21 @@
+id: apps.confluence
+name: Confluence
+vendor: atlassian
+category: apps
+description: Atlassian Confluence wiki / knowledge base
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Confluence
+  properties:
+    deployment:
+      type: string
+      title: Deployment
+      enum: ["", "Cloud", "Data Center", "Server"]
+    note:
+      type: string
+      title: Note

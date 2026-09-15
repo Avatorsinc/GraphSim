@@ -1,0 +1,45 @@
+id: vendor.meraki.ms
+name: Meraki MS Switch
+vendor: meraki
+category: l2
+description: Cisco Meraki MS access/aggregation switch. VLAN, QoS, port ACLs, 802.1X.
+icon: meraki_ms
+capabilities: [vlan, trunk, port_acl, dot1x, qos]
+evaluator: l2_switch
+interfaces:
+  - { name: ge1, type: ethernet }
+  - { name: ge2, type: ethernet }
+  - { name: ge3, type: ethernet }
+  - { name: ge4, type: ethernet }
+  - { name: ge5, type: ethernet }
+  - { name: ge6, type: ethernet }
+defaultConfig:
+  vlans: []
+  ports: []
+  portAcls: []
+configSchema:
+  type: object
+  title: Meraki MS
+  properties:
+    vlans: { type: array, items: { type: object } }
+    ports:
+      type: array
+      items:
+        type: object
+        properties:
+          name: { type: string }
+          mode: { type: string, enum: [access, trunk] }
+          accessVlan: { type: integer }
+          allowedVlans: { type: array, items: { type: integer } }
+          dot1x: { type: boolean }
+          poe: { type: boolean }
+    portAcls:
+      type: array
+      title: Port ACLs
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          priority: { type: integer }
+          action: { type: string, enum: [allow, deny] }
+          match: { type: object }

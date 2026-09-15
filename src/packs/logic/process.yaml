@@ -1,0 +1,23 @@
+id: logic.process
+name: Process
+vendor: builtin
+category: logic
+description: A process or step in a flow (rounded rectangle)
+evaluator: passthrough
+interfaces:
+  - { name: in, type: virtual }
+  - { name: out, type: virtual }
+defaultConfig:
+  description: ""
+  note: ""
+configSchema:
+  type: object
+  title: Process Step
+  properties:
+    description:
+      type: string
+      title: Description
+      description: "What happens in this step"
+    note:
+      type: string
+      title: Note

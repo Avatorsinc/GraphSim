@@ -1,0 +1,21 @@
+id: apps.servicenow
+name: ServiceNow
+vendor: servicenow
+category: apps
+description: ServiceNow ITSM / ITOM platform
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: ServiceNow
+  properties:
+    module:
+      type: string
+      title: Module
+      enum: ["", "ITSM", "ITOM", "CMDB", "SecOps", "HR Service Delivery", "CSM"]
+    note:
+      type: string
+      title: Note

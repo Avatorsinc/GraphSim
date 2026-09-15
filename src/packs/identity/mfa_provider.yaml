@@ -1,0 +1,24 @@
+id: identity.mfa
+name: MFA Provider
+vendor: builtin
+category: identity
+description: Generic multi-factor authentication provider
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: MFA Provider
+  properties:
+    methods:
+      type: array
+      title: Supported Methods
+      items:
+        type: string
+        enum: ["Push Notification", "TOTP / Authenticator App", "SMS", "Phone Call", "Email OTP", "Hardware Token (FIDO2)", "Biometric", "Smart Card / Certificate"]
+      uniqueItems: true
+    note:
+      type: string
+      title: Note

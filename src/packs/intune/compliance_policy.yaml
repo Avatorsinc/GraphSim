@@ -1,0 +1,57 @@
+id: vendor.intune.compliance_policy
+name: Intune Compliance Policy
+vendor: microsoft
+category: mdm
+description: Compliance policy. Marks devices compliant/non-compliant — feeds Conditional Access decisions.
+icon: intune_compliance
+capabilities: [compliance, conditional_access_signal]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  platform: windows10
+  rules: {}
+configSchema:
+  type: object
+  title: Compliance Policy
+  properties:
+    name: { type: string }
+    platform:
+      type: string
+      enum: [windows10, windows11, ios, ipados, android_enterprise, android_aosp, macos, linux]
+    rules:
+      type: object
+      title: Compliance Rules
+      properties:
+        osMinVersion: { type: string }
+        osMaxVersion: { type: string }
+        passwordRequired: { type: boolean }
+        passwordMinLength: { type: integer }
+        passwordComplexity: { type: string, enum: [none, numeric, alphanumeric, alphanumeric_symbols] }
+        passwordExpirationDays: { type: integer }
+        encryptionRequired: { type: boolean }
+        bitlockerRequired: { type: boolean }
+        secureBootRequired: { type: boolean }
+        codeIntegrityRequired: { type: boolean }
+        defenderEnabled: { type: boolean }
+        defenderSignaturesUpToDate: { type: boolean }
+        firewallEnabled: { type: boolean }
+        antivirusRequired: { type: boolean }
+        rtpEnabled: { type: boolean }
+        jailbroken: { type: string, enum: [block, allow] }
+        threatLevel: { type: string, enum: [secured, low, medium, high, notApplicable] }
+    actionsForNonCompliance:
+      type: array
+      title: Actions For Non-Compliance
+      items:
+        type: object
+        properties:
+          action:
+            type: string
+            enum: [notify, markNonCompliant, remoteLock, retire, sendEmailToUser, pushNotification]
+          gracePeriodHours: { type: integer }
+          template: { type: string }
+    assignments:
+      type: object
+      properties:
+        include: { type: array, items: { type: string } }
+        exclude: { type: array, items: { type: string } }

@@ -1,0 +1,32 @@
+id: vendor.suremdm.console
+name: SureMDM Console
+vendor: 42gears
+category: mdm
+description: SureMDM by 42Gears — UEM console root. Manages Android, iOS, Windows, Linux, ChromeOS, IoT.
+icon: suremdm
+capabilities: [uem, lockdown, kiosk, content_mgmt, geofencing, eva_communication_suite]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  deployment: cloud
+configSchema:
+  type: object
+  title: SureMDM Console
+  properties:
+    accountName: { type: string }
+    accountId: { type: string }
+    deployment: { type: string, enum: [cloud, on_premise], default: cloud }
+    region: { type: string, enum: [us, eu, ap, custom] }
+    consoleUrl: { type: string }
+    apiKey: { type: string, description: "API key for integrations (do not commit)" }
+    admins:
+      type: array
+      title: Console Admins
+      items:
+        type: object
+        properties:
+          email: { type: string }
+          role:
+            type: string
+            enum: [administrator, group_admin, technician, helpdesk, custom]
+          assignedGroups: { type: array, items: { type: string } }

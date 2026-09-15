@@ -1,0 +1,21 @@
+id: vendor.entra.external_id
+name: Entra External ID
+vendor: microsoft
+category: identity
+description: Microsoft Entra External ID (B2C / B2B) — customer & partner identity
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Entra External ID
+  properties:
+    type:
+      type: string
+      title: Type
+      enum: ["", "B2B Collaboration", "B2B Direct Connect", "External ID for customers (B2C)"]
+    note:
+      type: string
+      title: Note

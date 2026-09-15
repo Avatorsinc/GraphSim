@@ -1,0 +1,22 @@
+id: platform.macos
+name: macOS
+vendor: apple
+category: platform
+description: Apple macOS device target
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  version: ""
+  note: ""
+configSchema:
+  type: object
+  title: macOS
+  properties:
+    version:
+      type: string
+      title: macOS Version
+      description: "e.g. Sonoma 14, Sequoia 15"
+    note:
+      type: string
+      title: Note

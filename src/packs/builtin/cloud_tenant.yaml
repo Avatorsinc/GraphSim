@@ -1,0 +1,26 @@
+id: generic.cloud_tenant
+name: Cloud Tenant
+vendor: builtin
+category: cloud
+description: A cloud account/subscription/project. Contains regions, VPCs, subnets.
+icon: cloud_tenant
+capabilities: [cloud, container]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  provider: azure
+  name: my-tenant
+configSchema:
+  type: object
+  title: Cloud Tenant
+  properties:
+    provider:
+      type: string
+      title: Provider
+      enum: [azure, aws, gcp, oracle, ibm, alibaba, other]
+    name:
+      type: string
+      title: Tenant / Subscription / Project Name
+    accountId:
+      type: string
+      title: Account ID

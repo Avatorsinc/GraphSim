@@ -1,0 +1,17 @@
+id: apps.teams
+name: Microsoft Teams
+vendor: microsoft
+category: apps
+description: Microsoft Teams communication platform
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Microsoft Teams
+  properties:
+    note:
+      type: string
+      title: Note

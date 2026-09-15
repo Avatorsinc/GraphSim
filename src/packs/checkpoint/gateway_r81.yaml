@@ -1,0 +1,102 @@
+id: vendor.checkpoint.gateway.r81
+name: Check Point Security Gateway R81
+vendor: checkpoint
+category: firewall
+description: Check Point Quantum Security Gateway. Policy layers, NAT, IPS, App Control, Identity Awareness, IPsec VPN.
+icon: checkpoint_gw
+capabilities:
+  - stateful_fw
+  - nat
+  - ips
+  - app_control
+  - url_filter
+  - identity_awareness
+  - https_inspection
+  - vpn_ipsec
+  - threat_prevention
+evaluator: stateful_firewall
+interfaces:
+  - { name: eth0, type: ethernet }
+  - { name: eth1, type: ethernet }
+  - { name: eth2, type: ethernet }
+  - { name: eth3, type: ethernet }
+defaultConfig:
+  defaultAction: deny
+  policyLayers: []
+  rules: []
+  natRules: []
+  vpnCommunities: []
+  identityAwareness: { enabled: false, sources: [] }
+configSchema:
+  type: object
+  title: Check Point Gateway R81
+  properties:
+    defaultAction: { type: string, enum: [allow, deny], default: deny }
+    policyLayers:
+      type: array
+      title: Policy Layers (ordered)
+      items:
+        type: object
+        properties:
+          name: { type: string }
+          type: { type: string, enum: [access, threat, nat] }
+          enabled: { type: boolean, default: true }
+        required: [name, type]
+    rules:
+      type: array
+      title: Access Rules (within layers)
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          priority: { type: integer }
+          layer: { type: string }
+          action: { type: string, enum: [allow, deny, drop, reject, log] }
+          track: { type: string, enum: [none, log, alert] }
+          match:
+            type: object
+            properties:
+              src: { type: string, description: "host / network / group / identity" }
+              dst: { type: string }
+              service: { type: string }
+              proto: { type: string, enum: [tcp, udp, icmp, any] }
+              port: { type: string }
+              app: { type: string, description: "Application or category" }
+              identity: { type: string }
+              vpn: { type: string, description: "VPN community / 'Any Traffic'" }
+        required: [id, priority, action]
+    natRules:
+      type: array
+      title: NAT Rules
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          priority: { type: integer }
+          method: { type: string, enum: [hide, static, automatic] }
+          origSrc: { type: string }
+          origDst: { type: string }
+          origService: { type: string }
+          xlateSrc: { type: string }
+          xlateDst: { type: string }
+          xlateService: { type: string }
+    vpnCommunities:
+      type: array
+      title: VPN Communities
+      items:
+        type: object
+        properties:
+          name: { type: string }
+          type: { type: string, enum: [meshed, star] }
+          encryption: { type: string }
+          peers: { type: array, items: { type: string } }
+    identityAwareness:
+      type: object
+      title: Identity Awareness
+      properties:
+        enabled: { type: boolean }
+        sources:
+          type: array
+          items:
+            type: string
+            enum: [ad_query, identity_agent, captive_portal, terminal_servers, radius]

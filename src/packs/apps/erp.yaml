@@ -1,0 +1,21 @@
+id: apps.erp
+name: ERP System
+vendor: builtin
+category: apps
+description: Enterprise resource planning system
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: ERP System
+  properties:
+    vendor:
+      type: string
+      title: Vendor
+      enum: ["", "SAP", "Oracle", "Microsoft Dynamics", "NetSuite", "IFS", "Infor", "Custom"]
+    note:
+      type: string
+      title: Note

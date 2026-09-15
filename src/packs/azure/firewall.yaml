@@ -1,0 +1,50 @@
+id: vendor.azure.firewall
+name: Azure Firewall
+vendor: azure
+category: firewall
+description: Azure Firewall — managed stateful firewall service with NAT/Network/Application rule collections.
+icon: azure_firewall
+capabilities: [stateful_fw, app_rules, nat_rules, threat_intel, ips, dns_proxy]
+evaluator: stateful_firewall
+interfaces:
+  - { name: hub, type: virtual }
+defaultConfig:
+  defaultAction: deny
+  ruleCollections: []
+  rules: []
+configSchema:
+  type: object
+  title: Azure Firewall
+  properties:
+    defaultAction: { type: string, enum: [allow, deny], default: deny }
+    threatIntel: { type: string, enum: [Off, Alert, Deny], default: Alert }
+    ruleCollections:
+      type: array
+      title: Rule Collections (DNAT > Network > Application)
+      items:
+        type: object
+        properties:
+          name: { type: string }
+          priority: { type: integer, minimum: 100, maximum: 65000 }
+          type: { type: string, enum: [Dnat, Network, Application] }
+          action: { type: string, enum: [Allow, Deny] }
+        required: [name, priority, type, action]
+    rules:
+      type: array
+      title: Rules (across collections)
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          priority: { type: integer }
+          collection: { type: string }
+          action: { type: string, enum: [allow, deny] }
+          match:
+            type: object
+            properties:
+              src: { type: string }
+              dst: { type: string, description: "FQDN or IP/CIDR" }
+              fqdnTag: { type: string }
+              proto: { type: string, enum: [tcp, udp, icmp, any] }
+              port: { type: string }
+        required: [id, priority, action]

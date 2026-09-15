@@ -1,0 +1,56 @@
+id: vendor.suremdm.geofence
+name: SureMDM Geofence
+vendor: 42gears
+category: mdm
+description: Geofence — triggers actions when devices enter/leave a geographic region.
+icon: suremdm_geofence
+capabilities: [geofencing, location_actions]
+evaluator: passthrough
+interfaces: []
+defaultConfig: {}
+configSchema:
+  type: object
+  title: Geofence
+  properties:
+    name: { type: string }
+    shape:
+      type: object
+      properties:
+        type: { type: string, enum: [circle, polygon] }
+        latitude: { type: number }
+        longitude: { type: number }
+        radiusMeters: { type: number }
+        polygon:
+          type: array
+          items:
+            type: object
+            properties:
+              lat: { type: number }
+              lng: { type: number }
+    onEnter:
+      type: array
+      title: On-Enter Actions
+      items:
+        type: object
+        properties:
+          action:
+            type: string
+            enum: [unlock, push_profile_id, push_message, allow_calls, disable_camera, none]
+          parameters:
+            type: object
+            additionalProperties: true
+    onExit:
+      type: array
+      title: On-Exit Actions
+      items:
+        type: object
+        properties:
+          action:
+            type: string
+            enum: [lock_device, push_profile_id, push_message, alert, factory_reset, wipe, none]
+          parameters:
+            type: object
+            additionalProperties: true
+    appliedToGroups:
+      type: array
+      items: { type: string }

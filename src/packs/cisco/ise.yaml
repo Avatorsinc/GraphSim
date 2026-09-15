@@ -1,0 +1,66 @@
+id: vendor.cisco.ise
+name: Cisco ISE
+vendor: cisco
+category: identity
+description: Cisco Identity Services Engine. RADIUS/TACACS, 802.1X, posture, profiling, SGT/TrustSec, network access policies.
+icon: cisco_ise
+capabilities: [radius, tacacs, dot1x, posture, profiling, sgt, trustsec, mab]
+evaluator: passthrough
+interfaces:
+  - { name: gigabitEthernet 0, type: ethernet }
+defaultConfig:
+  authPolicies: []
+  authzPolicies: []
+  identitySources: []
+  postureRequirements: []
+configSchema:
+  type: object
+  title: Cisco ISE
+  properties:
+    identitySources:
+      type: array
+      title: Identity Sources
+      items:
+        type: object
+        properties:
+          name: { type: string }
+          type: { type: string, enum: [active_directory, ldap, internal, radius_token, saml, certificate] }
+          domain: { type: string }
+        required: [name, type]
+    authPolicies:
+      type: array
+      title: Authentication Policies
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          priority: { type: integer }
+          condition: { type: string }
+          identitySource: { type: string }
+          allowedProtocols:
+            type: array
+            items: { type: string, enum: [PAP, CHAP, MS-CHAPv2, EAP-TLS, EAP-PEAP, EAP-FAST, EAP-TTLS] }
+        required: [id, priority]
+    authzPolicies:
+      type: array
+      title: Authorization Policies
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          priority: { type: integer }
+          condition: { type: string, description: "e.g. AD-Group=Engineers AND Posture=Compliant" }
+          result: { type: string, description: "Permission / SGT / dACL / VLAN" }
+          sgt: { type: string, description: "Security Group Tag" }
+          dacl: { type: string }
+          vlan: { type: integer }
+        required: [id, priority, condition, result]
+    postureRequirements:
+      type: array
+      title: Posture Requirements
+      items:
+        type: object
+        properties:
+          name: { type: string }
+          os: { type: string, enum: [windows, macos, linux, ios, android] }
+          checks: { type: array, items: { type: string } }

@@ -1,0 +1,38 @@
+id: generic.client
+name: Generic Client
+vendor: builtin
+category: endpoint
+description: Generic endpoint (PC, laptop, phone, server). Originates and receives flows.
+icon: client
+capabilities: [endpoint]
+evaluator: endpoint
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  os: linux
+  ip: 192.168.1.10/24
+  gateway: 192.168.1.1
+  dns: [1.1.1.1]
+configSchema:
+  type: object
+  title: Client
+  properties:
+    os:
+      type: string
+      title: Operating System
+      enum: [windows, linux, macos, android, ios]
+    ip:
+      type: string
+      title: IP / CIDR
+      description: e.g. 192.168.1.10/24
+    gateway:
+      type: string
+      title: Default Gateway
+    dns:
+      type: array
+      title: DNS Servers
+      items: { type: string }
+    identityId:
+      type: string
+      title: Identity (optional)
+      description: ID of an Identity record this device runs as

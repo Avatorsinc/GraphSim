@@ -1,0 +1,44 @@
+id: generic.switch
+name: L2 Switch
+vendor: builtin
+category: l2
+description: Layer-2 switch. Forwards within VLANs, isolates between them unless trunked.
+icon: switch
+capabilities: [vlan, trunk]
+evaluator: l2_switch
+interfaces:
+  - { name: ge1, type: ethernet }
+  - { name: ge2, type: ethernet }
+  - { name: ge3, type: ethernet }
+  - { name: ge4, type: ethernet }
+defaultConfig:
+  vlans: [{ id: 1, name: default }]
+  ports: []
+configSchema:
+  type: object
+  title: L2 Switch
+  properties:
+    vlans:
+      type: array
+      title: VLANs
+      items:
+        type: object
+        properties:
+          id: { type: integer, minimum: 1, maximum: 4094 }
+          name: { type: string }
+        required: [id]
+    ports:
+      type: array
+      title: Port Assignments
+      items:
+        type: object
+        properties:
+          name: { type: string, title: Interface }
+          mode:
+            type: string
+            enum: [access, trunk]
+          accessVlan: { type: integer }
+          allowedVlans:
+            type: array
+            items: { type: integer }
+        required: [name, mode]

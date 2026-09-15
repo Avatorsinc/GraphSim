@@ -1,0 +1,58 @@
+id: vendor.intune.endpoint_security
+name: Endpoint Security Policy
+vendor: microsoft
+category: mdm
+description: Endpoint Security policies — antivirus, disk encryption, firewall, EDR, attack surface reduction, account protection.
+icon: intune_security
+capabilities: [defender, asr, edr, bitlocker, firewall, account_protection]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  policyType: antivirus
+configSchema:
+  type: object
+  title: Endpoint Security Policy
+  properties:
+    name: { type: string }
+    policyType:
+      type: string
+      enum: [antivirus, disk_encryption, firewall, edr, asr, account_protection, app_control, exploit_protection, web_protection, device_compliance]
+    platform:
+      type: string
+      enum: [windows10, windows11, macos, linux]
+    settings:
+      type: object
+      additionalProperties: true
+      description: "Setting → value map (varies by policyType)"
+    asrRules:
+      type: array
+      title: Attack Surface Reduction Rules (when policyType=asr)
+      items:
+        type: object
+        properties:
+          ruleId: { type: string, description: "GUID, e.g. D4F940AB-401B-4EFC-AADC-AD5F3C50688A" }
+          ruleName: { type: string }
+          mode: { type: string, enum: [audit, block, warn, off] }
+    bitlocker:
+      type: object
+      title: BitLocker (when policyType=disk_encryption)
+      properties:
+        encryptDevices: { type: boolean }
+        encryptionMethod: { type: string, enum: [aes128_cbc, aes256_cbc, xts_aes128, xts_aes256] }
+        recoveryKeyBackupToAad: { type: boolean }
+        startupAuthRequired: { type: boolean }
+    firewallProfiles:
+      type: array
+      title: Firewall Profiles (when policyType=firewall)
+      items:
+        type: object
+        properties:
+          profile: { type: string, enum: [domain, private, public] }
+          enabled: { type: boolean }
+          inboundDefault: { type: string, enum: [block, allow] }
+          outboundDefault: { type: string, enum: [block, allow] }
+    assignments:
+      type: object
+      properties:
+        include: { type: array, items: { type: string } }
+        exclude: { type: array, items: { type: string } }

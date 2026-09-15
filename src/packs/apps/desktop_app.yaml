@@ -1,0 +1,21 @@
+id: apps.desktop_app
+name: Desktop App
+vendor: builtin
+category: apps
+description: Generic desktop application
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Desktop App
+  properties:
+    platform:
+      type: string
+      title: Platform
+      enum: ["", "Windows", "macOS", "Linux", "Cross-platform"]
+    note:
+      type: string
+      title: Note

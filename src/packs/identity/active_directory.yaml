@@ -1,0 +1,32 @@
+id: identity.active_directory
+name: Active Directory
+vendor: microsoft
+category: identity
+description: On-premises Active Directory Domain Services (AD DS)
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Active Directory
+  properties:
+    domainName:
+      type: string
+      title: Domain Name
+      description: "e.g. corp.contoso.com"
+    functionalLevel:
+      type: string
+      title: Functional Level
+      enum: ["", "2012 R2", "2016", "2019", "2022", "2025"]
+    role:
+      type: string
+      title: DC Role
+      enum: ["", "Domain Controller", "Read-Only DC (RODC)", "Global Catalog", "FSMO Role Holder"]
+    syncedToEntra:
+      type: boolean
+      title: Synced to Entra ID (Azure AD Connect)
+    note:
+      type: string
+      title: Note

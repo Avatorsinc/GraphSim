@@ -1,0 +1,24 @@
+id: apps.saas_app
+name: SaaS App
+vendor: builtin
+category: apps
+description: Generic SaaS / cloud application
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  url: ""
+  note: ""
+configSchema:
+  type: object
+  title: SaaS App
+  properties:
+    url:
+      type: string
+      title: URL
+    ssoEnabled:
+      type: boolean
+      title: SSO Enabled
+    note:
+      type: string
+      title: Note

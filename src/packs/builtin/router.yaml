@@ -1,0 +1,38 @@
+id: generic.router
+name: Router
+vendor: builtin
+category: l3
+description: Layer-3 router. Forwards between subnets per its routing table.
+icon: router
+capabilities: [routing, static_routes]
+evaluator: router
+interfaces:
+  - { name: eth0, type: ethernet }
+  - { name: eth1, type: ethernet }
+defaultConfig:
+  routes: []
+  interfaceIps: {}
+configSchema:
+  type: object
+  title: Router
+  properties:
+    interfaceIps:
+      type: object
+      title: Interface IPs
+      additionalProperties:
+        type: string
+        description: CIDR, e.g. 10.0.0.1/24
+    routes:
+      type: array
+      title: Static Routes
+      items:
+        type: object
+        properties:
+          prefix:
+            type: string
+            title: Destination
+            description: CIDR, e.g. 10.0.0.0/24 or 0.0.0.0/0
+          nextHop: { type: string, title: Next Hop }
+          interface: { type: string, title: Egress Interface }
+          metric: { type: integer, default: 1 }
+        required: [prefix, nextHop]

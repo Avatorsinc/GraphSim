@@ -1,0 +1,55 @@
+id: generic.cloud_subnet
+name: Cloud Subnet
+vendor: builtin
+category: cloud
+description: Cloud subnet (Azure subnet, AWS subnet, GCP subnet). Has NSG/firewall rules and a route table.
+icon: cloud_subnet
+capabilities: [cloud, nsg, route_table]
+evaluator: cloud_nsg
+interfaces:
+  - { name: subnet, type: virtual }
+defaultConfig:
+  cidr: 10.0.0.0/24
+  region: ""
+  nsgRules: []
+  routes: []
+configSchema:
+  type: object
+  title: Cloud Subnet
+  properties:
+    cidr: { type: string, title: CIDR }
+    region: { type: string, title: Region (e.g. westeurope, us-central1) }
+    nsgRules:
+      type: array
+      title: NSG / Firewall Rules
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          priority: { type: integer }
+          direction:
+            type: string
+            enum: [in, out]
+          match:
+            type: object
+            properties:
+              src: { type: string }
+              dst: { type: string }
+              proto: { type: string, enum: [tcp, udp, icmp, any] }
+              port: { type: string }
+          action:
+            type: string
+            enum: [allow, deny]
+        required: [id, priority, direction, action]
+    routes:
+      type: array
+      title: Route Table
+      items:
+        type: object
+        properties:
+          prefix: { type: string }
+          nextHop: { type: string }
+          kind:
+            type: string
+            enum: [local, vnet_peering, vpn_gateway, internet, virtual_appliance]
+        required: [prefix, kind]

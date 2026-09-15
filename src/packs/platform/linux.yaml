@@ -1,0 +1,22 @@
+id: platform.linux
+name: Linux
+vendor: linux
+category: platform
+description: Linux OS device target
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  distro: ""
+  note: ""
+configSchema:
+  type: object
+  title: Linux
+  properties:
+    distro:
+      type: string
+      title: Distribution
+      description: "e.g. Ubuntu 24.04, RHEL 9, Debian 12"
+    note:
+      type: string
+      title: Note

@@ -1,0 +1,39 @@
+id: vendor.azure.nsg
+name: Azure NSG (Network Security Group)
+vendor: azure
+category: cloud
+description: Azure Network Security Group. Stateful, priority-based, applies to subnet or NIC. Default rules implicit.
+icon: azure_nsg
+capabilities: [stateful_fw, cloud_sg, asg_support]
+evaluator: cloud_nsg
+interfaces:
+  - { name: nsg, type: virtual }
+defaultConfig:
+  scope: subnet
+  rules: []
+configSchema:
+  type: object
+  title: Azure NSG
+  properties:
+    scope:
+      type: string
+      enum: [subnet, nic]
+      default: subnet
+    rules:
+      type: array
+      title: Security Rules (priority 100–4096)
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          priority: { type: integer, minimum: 100, maximum: 4096 }
+          direction: { type: string, enum: [Inbound, Outbound] }
+          access: { type: string, enum: [Allow, Deny] }
+          protocol: { type: string, enum: [Tcp, Udp, Icmp, "*"] }
+          sourceAddressPrefix: { type: string }
+          sourcePortRange: { type: string }
+          destinationAddressPrefix: { type: string }
+          destinationPortRange: { type: string }
+          sourceAsg: { type: string }
+          destinationAsg: { type: string }
+        required: [id, priority, direction, access]

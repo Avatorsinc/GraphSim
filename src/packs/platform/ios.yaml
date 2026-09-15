@@ -1,0 +1,29 @@
+id: platform.ios
+name: iOS / iPadOS
+vendor: apple
+category: platform
+description: Apple iOS or iPadOS device target
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  version: ""
+  note: ""
+configSchema:
+  type: object
+  title: iOS / iPadOS
+  properties:
+    version:
+      type: string
+      title: OS Version
+      description: "e.g. 16, 17, 18"
+    deviceType:
+      type: string
+      title: Device Type
+      enum: ["iPhone", "iPad", "iPod touch"]
+    supervised:
+      type: boolean
+      title: Supervised
+    note:
+      type: string
+      title: Note

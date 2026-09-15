@@ -1,0 +1,24 @@
+id: logic.check
+name: Check / Verify
+vendor: builtin
+category: logic
+description: "Verification step (e.g. Verify PIN, Check compliance, Validate token)"
+evaluator: passthrough
+interfaces:
+  - { name: in, type: virtual }
+  - { name: pass, type: virtual }
+  - { name: fail, type: virtual }
+defaultConfig:
+  what: ""
+  note: ""
+configSchema:
+  type: object
+  title: Check
+  properties:
+    what:
+      type: string
+      title: What to check
+      description: "e.g. PIN code, Biometric, Compliance status, Token validity"
+    note:
+      type: string
+      title: Note

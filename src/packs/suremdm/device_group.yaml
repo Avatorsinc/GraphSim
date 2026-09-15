@@ -1,0 +1,38 @@
+id: vendor.suremdm.device_group
+name: SureMDM Device Group
+vendor: 42gears
+category: mdm
+description: Device group — hierarchical or dynamic via tags. Targets for jobs and policies.
+icon: suremdm_group
+capabilities: [group, hierarchy, dynamic_membership, tags]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  type: static
+configSchema:
+  type: object
+  title: Device Group
+  properties:
+    name: { type: string }
+    type: { type: string, enum: [static, dynamic, parent], default: static }
+    parentGroup: { type: string }
+    description: { type: string }
+    members:
+      type: array
+      title: Member Devices (IDs / serials)
+      items: { type: string }
+    dynamicRule:
+      type: string
+      description: "e.g. tag = 'KIOSK' AND model contains 'Zebra'"
+    tags:
+      type: array
+      title: Auto-applied Tags
+      items: { type: string }
+    enrollmentRules:
+      type: array
+      title: Auto-enrollment Rules
+      items:
+        type: object
+        properties:
+          condition: { type: string, description: "e.g. serial starts with ELO-" }
+          assignProfileIds: { type: array, items: { type: string } }

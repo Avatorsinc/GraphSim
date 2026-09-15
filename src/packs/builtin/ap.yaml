@@ -1,0 +1,32 @@
+id: generic.ap
+name: Wireless Access Point
+vendor: builtin
+category: wireless
+description: 802.11 AP. Bridges wireless clients onto a wired VLAN/SSID mapping.
+icon: ap
+capabilities: [wifi, ssid, wpa2, wpa3]
+evaluator: l2_switch
+interfaces:
+  - { name: lan, type: ethernet }
+  - { name: wlan0, type: wifi }
+defaultConfig:
+  ssids: []
+configSchema:
+  type: object
+  title: Access Point
+  properties:
+    ssids:
+      type: array
+      title: SSIDs
+      items:
+        type: object
+        properties:
+          name: { type: string, title: SSID }
+          vlan: { type: integer }
+          security:
+            type: string
+            enum: [open, wpa2_psk, wpa2_enterprise, wpa3_psk, wpa3_enterprise]
+          authIdentity:
+            type: string
+            description: "For 802.1X — references an identity provider"
+        required: [name, security]

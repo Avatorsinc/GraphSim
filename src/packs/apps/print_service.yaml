@@ -1,0 +1,21 @@
+id: apps.print_service
+name: Print Service
+vendor: builtin
+category: apps
+description: Print server or cloud print service
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Print Service
+  properties:
+    type:
+      type: string
+      title: Type
+      enum: ["", "Windows Print Server", "Universal Print", "Google Cloud Print", "CUPS", "Direct IP"]
+    note:
+      type: string
+      title: Note

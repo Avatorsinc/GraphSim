@@ -1,0 +1,31 @@
+id: platform.android
+name: Android
+vendor: google
+category: platform
+description: Android OS device or version target
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  version: ""
+  apiLevel: ""
+  note: ""
+configSchema:
+  type: object
+  title: Android
+  properties:
+    version:
+      type: string
+      title: Android Version
+      description: "e.g. 9, 13, 14"
+    apiLevel:
+      type: string
+      title: API Level
+      description: "e.g. 28, 33, 34"
+    variant:
+      type: string
+      title: Variant
+      enum: ["AOSP", "GMS", "Android Enterprise", "Android Go"]
+    note:
+      type: string
+      title: Note

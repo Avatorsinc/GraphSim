@@ -1,0 +1,56 @@
+id: vendor.suremdm.profile
+name: SureMDM Profile (Job)
+vendor: 42gears
+category: mdm
+description: SureMDM job/profile — bundle of settings, files, scripts, apps to apply to devices via job dispatcher.
+icon: suremdm_profile
+capabilities: [job_dispatcher, settings, scripts, apps]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  type: settings
+configSchema:
+  type: object
+  title: SureMDM Profile / Job
+  properties:
+    name: { type: string }
+    type:
+      type: string
+      enum:
+        - settings
+        - install_application
+        - uninstall_application
+        - run_script
+        - file_transfer
+        - device_config
+        - wifi
+        - email
+        - vpn
+        - certificate
+        - kiosk_lockdown
+        - knox_config
+        - afw_config
+        - apple_config
+    platform:
+      type: string
+      enum: [android, android_legacy, afw, ios, windows, windows_pc, linux, chromeos, wear]
+    description: { type: string }
+    payload:
+      type: object
+      additionalProperties: true
+      description: "Payload depends on job type — see SureMDM docs for setting keys"
+    deployTo:
+      type: array
+      title: Deploy to (groups / devices / tags)
+      items: { type: string }
+    schedule:
+      type: object
+      properties:
+        mode: { type: string, enum: [immediate, scheduled, recurring] }
+        startAt: { type: string, format: date-time }
+        recurEvery: { type: string, enum: [day, week, month] }
+    network:
+      type: object
+      properties:
+        wifiOnly: { type: boolean }
+        chargingOnly: { type: boolean }

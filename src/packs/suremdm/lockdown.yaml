@@ -1,0 +1,68 @@
+id: vendor.suremdm.lockdown
+name: SureLock / Lockdown Profile
+vendor: 42gears
+category: mdm
+description: SureLock kiosk lockdown — restrict device to allowed apps, disable hardware keys, multi-app or single-app kiosk.
+icon: surelock
+capabilities: [kiosk, single_app, multi_app, kiosk_browser, hardware_lockdown]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  mode: multi_app
+  allowedApps: []
+configSchema:
+  type: object
+  title: Lockdown Profile
+  properties:
+    name: { type: string }
+    mode: { type: string, enum: [single_app, multi_app, browser_kiosk, cosu] }
+    platform: { type: string, enum: [android, ios, windows] }
+    allowedApps:
+      type: array
+      title: Allowed Apps
+      items:
+        type: object
+        properties:
+          packageName: { type: string }
+          displayName: { type: string }
+          autoLaunch: { type: boolean }
+        required: [packageName]
+    homeScreen:
+      type: object
+      properties:
+        wallpaper: { type: string }
+        showClock: { type: boolean }
+        showBattery: { type: boolean }
+        showWifi: { type: boolean }
+        layout: { type: string, enum: [grid, list, single] }
+        passwordToExit: { type: string, format: password }
+    hardwareLockdown:
+      type: object
+      properties:
+        disableHomeKey: { type: boolean }
+        disableBackKey: { type: boolean }
+        disableRecentApps: { type: boolean }
+        disableVolumeKeys: { type: boolean }
+        disablePowerKey: { type: boolean }
+        disableNotifications: { type: boolean }
+        disableStatusBar: { type: boolean }
+        disableUsbDebugging: { type: boolean }
+        disableSafeBoot: { type: boolean }
+    networkLockdown:
+      type: object
+      properties:
+        whitelistedSsids: { type: array, items: { type: string } }
+        blockBluetooth: { type: boolean }
+        blockHotspot: { type: boolean }
+    browser:
+      type: object
+      title: SureFox / Browser Kiosk
+      properties:
+        homeUrl: { type: string }
+        whitelistedUrls: { type: array, items: { type: string } }
+        blacklistedUrls: { type: array, items: { type: string } }
+        idleTimeoutSec: { type: integer }
+        clearOnExit: { type: boolean }
+    deployTo:
+      type: array
+      items: { type: string }

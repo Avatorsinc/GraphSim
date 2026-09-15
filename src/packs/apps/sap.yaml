@@ -1,0 +1,21 @@
+id: apps.sap
+name: SAP
+vendor: sap
+category: apps
+description: SAP ERP / S4HANA / Business suite
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: SAP
+  properties:
+    module:
+      type: string
+      title: Module
+      enum: ["", "S/4HANA", "ECC", "SuccessFactors", "Ariba", "Concur", "Business One", "BTP"]
+    note:
+      type: string
+      title: Note

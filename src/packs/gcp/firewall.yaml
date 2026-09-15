@@ -1,0 +1,34 @@
+id: vendor.gcp.firewall
+name: GCP VPC Firewall Rule
+vendor: gcp
+category: cloud
+description: GCP VPC firewall — stateful, priority 0–65535, ingress/egress, target tags or service accounts.
+icon: gcp_firewall
+capabilities: [stateful_fw, target_tags, target_sa]
+evaluator: cloud_nsg
+interfaces:
+  - { name: vpc, type: virtual }
+defaultConfig:
+  rules: []
+configSchema:
+  type: object
+  title: GCP VPC Firewall
+  properties:
+    rules:
+      type: array
+      title: Rules
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          priority: { type: integer, minimum: 0, maximum: 65535 }
+          direction: { type: string, enum: [INGRESS, EGRESS] }
+          action: { type: string, enum: [allow, deny] }
+          targetTags: { type: array, items: { type: string } }
+          targetServiceAccounts: { type: array, items: { type: string } }
+          sourceRanges: { type: array, items: { type: string } }
+          sourceTags: { type: array, items: { type: string } }
+          destinationRanges: { type: array, items: { type: string } }
+          protocol: { type: string, enum: [tcp, udp, icmp, esp, ah, sctp, all] }
+          ports: { type: string }
+        required: [id, priority, direction, action]

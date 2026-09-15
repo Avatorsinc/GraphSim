@@ -1,0 +1,16 @@
+id: generic.cloud_region
+name: Cloud Region
+vendor: builtin
+category: cloud
+description: A cloud region (e.g. westeurope, us-east-1, europe-west1). Contains VPCs.
+icon: cloud_region
+capabilities: [cloud, container]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  region: westeurope
+configSchema:
+  type: object
+  title: Cloud Region
+  properties:
+    region: { type: string, title: Region Code }

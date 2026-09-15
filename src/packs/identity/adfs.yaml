@@ -1,0 +1,28 @@
+id: identity.adfs
+name: ADFS
+vendor: microsoft
+category: identity
+description: Active Directory Federation Services — on-premises SAML / WS-Federation IdP
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: ADFS
+  properties:
+    version:
+      type: string
+      title: Version
+      enum: ["", "ADFS 2.0", "ADFS 3.0 (2012 R2)", "ADFS 4.0 (2016)", "ADFS 5.0 (2019)", "ADFS 2022"]
+    protocols:
+      type: array
+      title: Protocols
+      items:
+        type: string
+        enum: ["SAML 2.0", "WS-Federation", "OAuth 2.0", "OpenID Connect"]
+      uniqueItems: true
+    note:
+      type: string
+      title: Note

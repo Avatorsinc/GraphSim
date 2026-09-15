@@ -1,0 +1,28 @@
+id: logic.action
+name: Action
+vendor: builtin
+category: logic
+description: "A user or system action (e.g. Enter PIN, Scan badge, Open app)"
+evaluator: passthrough
+interfaces:
+  - { name: in, type: virtual }
+  - { name: out, type: virtual }
+defaultConfig:
+  actor: ""
+  description: ""
+  note: ""
+configSchema:
+  type: object
+  title: Action
+  properties:
+    actor:
+      type: string
+      title: Actor
+      description: "Who performs this action (e.g. User, System, Admin)"
+    description:
+      type: string
+      title: Description
+      description: "e.g. Enter PIN code, Tap NFC badge, Approve request"
+    note:
+      type: string
+      title: Note

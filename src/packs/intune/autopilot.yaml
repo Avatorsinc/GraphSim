@@ -1,0 +1,62 @@
+id: vendor.intune.autopilot
+name: Autopilot Profile
+vendor: microsoft
+category: mdm
+description: Windows Autopilot deployment profile. Zero-touch provisioning — joins device to Entra ID and enrolls into Intune at OOBE.
+icon: autopilot
+capabilities: [autopilot, oobe, esp]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  deploymentMode: user_driven
+  joinType: azure_ad
+  oobe:
+    skipPrivacy: true
+    skipEula: true
+    skipKeyboard: false
+    hideAccountChange: true
+    userType: standard
+configSchema:
+  type: object
+  title: Autopilot Profile
+  properties:
+    deploymentMode:
+      type: string
+      enum: [user_driven, self_deploying, pre_provisioning, shared_pc]
+      default: user_driven
+    joinType:
+      type: string
+      enum: [azure_ad, hybrid_azure_ad]
+      default: azure_ad
+    namingTemplate:
+      type: string
+      description: "%SERIAL%, %RAND:N% — e.g. KIOSK-%SERIAL%"
+    languagePackage: { type: string, default: os_default }
+    oobe:
+      type: object
+      properties:
+        skipPrivacy: { type: boolean }
+        skipEula: { type: boolean }
+        skipKeyboard: { type: boolean }
+        hideAccountChange: { type: boolean }
+        hideEulas: { type: boolean }
+        userType: { type: string, enum: [standard, admin] }
+        applyDeviceNameTemplate: { type: boolean }
+    enrollmentStatusPage:
+      type: object
+      title: Enrollment Status Page (ESP)
+      properties:
+        showProgress: { type: boolean, default: true }
+        blockUntilComplete: { type: boolean, default: true }
+        timeoutMin: { type: integer, default: 60 }
+        allowReset: { type: boolean }
+        requiredApps: { type: array, items: { type: string } }
+        requiredScripts: { type: array, items: { type: string } }
+    assignedGroups:
+      type: array
+      title: Assigned Groups
+      items: { type: string }
+    deviceTags:
+      type: array
+      title: Group Tags (matches device-import group tag)
+      items: { type: string }

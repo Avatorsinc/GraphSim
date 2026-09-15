@@ -1,0 +1,25 @@
+id: identity.ldap
+name: LDAP Directory
+vendor: builtin
+category: identity
+description: LDAP directory server (OpenLDAP, 389 DS, eDirectory, etc.)
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: LDAP Directory
+  properties:
+    implementation:
+      type: string
+      title: Implementation
+      enum: ["", "OpenLDAP", "389 Directory Server", "NetIQ eDirectory", "Apache Directory", "Oracle Unified Directory", "Other"]
+    baseDN:
+      type: string
+      title: Base DN
+      description: "e.g. dc=corp,dc=contoso,dc=com"
+    note:
+      type: string
+      title: Note

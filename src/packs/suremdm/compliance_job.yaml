@@ -1,0 +1,51 @@
+id: vendor.suremdm.compliance_job
+name: SureMDM Compliance Job
+vendor: 42gears
+category: mdm
+description: Compliance check job — evaluate device state, alert/lock/wipe on violation.
+icon: suremdm_compliance
+capabilities: [compliance, alerts, remediation]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  rules: []
+configSchema:
+  type: object
+  title: Compliance Job
+  properties:
+    name: { type: string }
+    rules:
+      type: array
+      title: Compliance Rules
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          check:
+            type: string
+            enum:
+              - rooted_jailbroken
+              - sim_changed
+              - blacklisted_app_installed
+              - whitelisted_app_missing
+              - location_outside_geofence
+              - battery_below
+              - storage_below
+              - os_version_below
+              - last_seen_older_than
+              - unauthorized_user_login
+          parameters:
+            type: object
+            additionalProperties: true
+          action:
+            type: string
+            enum: [alert_email, alert_console, lock_device, wipe_device, factory_reset, push_message, run_remediation_job, mark_noncompliant]
+          remediationJobId: { type: string }
+        required: [id, check, action]
+    schedule:
+      type: object
+      properties:
+        intervalMin: { type: integer, default: 60 }
+    deployTo:
+      type: array
+      items: { type: string }

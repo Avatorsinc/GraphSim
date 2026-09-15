@@ -1,0 +1,26 @@
+id: platform.windows
+name: Windows
+vendor: microsoft
+category: platform
+description: Microsoft Windows OS device target
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  version: ""
+  note: ""
+configSchema:
+  type: object
+  title: Windows
+  properties:
+    version:
+      type: string
+      title: Windows Version
+      enum: ["Windows 10", "Windows 11", "Windows Server 2022", "Windows Server 2025"]
+    edition:
+      type: string
+      title: Edition
+      enum: ["Home", "Pro", "Enterprise", "Education", "IoT Enterprise"]
+    note:
+      type: string
+      title: Note

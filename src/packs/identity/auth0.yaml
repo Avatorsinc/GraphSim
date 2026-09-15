@@ -1,0 +1,25 @@
+id: identity.auth0
+name: Auth0
+vendor: okta
+category: identity
+description: Auth0 by Okta — developer-focused identity platform, CIAM
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Auth0
+  properties:
+    domain:
+      type: string
+      title: Domain
+      description: "e.g. myapp.auth0.com"
+    plan:
+      type: string
+      title: Plan
+      enum: ["", "Free", "Essential", "Professional", "Enterprise"]
+    note:
+      type: string
+      title: Note

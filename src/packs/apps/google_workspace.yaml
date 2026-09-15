@@ -1,0 +1,21 @@
+id: apps.google_workspace
+name: Google Workspace
+vendor: google
+category: apps
+description: Google Workspace (Gmail, Drive, Docs, Meet, etc.)
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Google Workspace
+  properties:
+    plan:
+      type: string
+      title: Edition
+      enum: ["", "Business Starter", "Business Standard", "Business Plus", "Enterprise Standard", "Enterprise Plus"]
+    note:
+      type: string
+      title: Note

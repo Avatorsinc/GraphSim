@@ -1,0 +1,23 @@
+id: logic.decision
+name: "IF / Decision"
+vendor: builtin
+category: logic
+description: Decision point — routes flow based on a condition (diamond shape)
+evaluator: passthrough
+interfaces:
+  - { name: yes, type: virtual }
+  - { name: no, type: virtual }
+defaultConfig:
+  condition: ""
+  note: ""
+configSchema:
+  type: object
+  title: Decision
+  properties:
+    condition:
+      type: string
+      title: Condition
+      description: "e.g. Is device enrolled? / PIN correct? / User in group?"
+    note:
+      type: string
+      title: Note

@@ -1,0 +1,23 @@
+id: logic.end
+name: End
+vendor: builtin
+category: logic
+description: End terminal — end of a flow
+evaluator: passthrough
+interfaces:
+  - { name: in, type: virtual }
+defaultConfig:
+  result: ""
+  note: ""
+configSchema:
+  type: object
+  title: End
+  properties:
+    result:
+      type: string
+      title: Result
+      description: "e.g. Access granted, Denied, Locked out"
+      enum: ["", "Success", "Failure", "Access Granted", "Access Denied", "Locked", "Retry"]
+    note:
+      type: string
+      title: Note

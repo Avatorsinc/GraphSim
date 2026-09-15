@@ -1,0 +1,32 @@
+id: vendor.intune.device_group
+name: Entra Device Group
+vendor: microsoft
+category: mdm
+description: Entra ID security group used to scope Intune assignments. Static membership or dynamic via membership rule.
+icon: entra_group
+capabilities: [group, dynamic_membership, scope_target]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  type: assigned
+  members: []
+configSchema:
+  type: object
+  title: Device Group
+  properties:
+    name: { type: string }
+    type: { type: string, enum: [assigned, dynamic_device, dynamic_user], default: assigned }
+    description: { type: string }
+    membershipRule:
+      type: string
+      description: "For dynamic groups, e.g. (device.devicePhysicalIDs -any (_ -startsWith \"[OrderID]:KIOSK\"))"
+    members:
+      type: array
+      title: Static Members (objectIDs / device names)
+      items: { type: string }
+    associatedAutopilotGroupTag:
+      type: string
+      description: "If this group is linked to an Autopilot Group Tag for dynamic device matching"
+    appliedScopeTags:
+      type: array
+      items: { type: string }

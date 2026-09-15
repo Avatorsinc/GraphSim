@@ -1,0 +1,21 @@
+id: identity.aws_iam
+name: AWS IAM / Cognito
+vendor: aws
+category: identity
+description: AWS Identity — IAM, Cognito, IAM Identity Center (SSO)
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: AWS Identity
+  properties:
+    service:
+      type: string
+      title: Service
+      enum: ["", "IAM", "IAM Identity Center (SSO)", "Cognito User Pool", "Cognito Identity Pool", "AWS Directory Service"]
+    note:
+      type: string
+      title: Note

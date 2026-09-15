@@ -1,0 +1,21 @@
+id: apps.file_share
+name: File Share / NAS
+vendor: builtin
+category: apps
+description: Network file share, NAS, or file server
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: File Share
+  properties:
+    protocol:
+      type: string
+      title: Protocol
+      enum: ["", "SMB / CIFS", "NFS", "FTP / SFTP", "WebDAV"]
+    note:
+      type: string
+      title: Note

@@ -1,0 +1,77 @@
+id: vendor.paloalto.panos
+name: Palo Alto NGFW (PAN-OS)
+vendor: paloalto
+category: firewall
+description: Palo Alto Networks NGFW. Security policies with App-ID/User-ID/Content-ID, zones, NAT, IPsec/GlobalProtect.
+icon: paloalto_pa
+capabilities:
+  - stateful_fw
+  - app_id
+  - user_id
+  - content_id
+  - url_filter
+  - threat_prev
+  - vpn_ipsec
+  - vpn_globalprotect
+  - decryption
+evaluator: stateful_firewall
+interfaces:
+  - { name: ethernet1/1, type: ethernet }
+  - { name: ethernet1/2, type: ethernet }
+  - { name: ethernet1/3, type: ethernet }
+defaultConfig:
+  defaultAction: deny
+  zones: []
+  rules: []
+  natRules: []
+configSchema:
+  type: object
+  title: Palo Alto NGFW
+  properties:
+    defaultAction: { type: string, enum: [allow, deny], default: deny }
+    zones:
+      type: array
+      title: Zones
+      items:
+        type: object
+        properties:
+          name: { type: string }
+          type: { type: string, enum: [layer3, layer2, virtual_wire, tap] }
+          interfaces: { type: array, items: { type: string } }
+        required: [name]
+    rules:
+      type: array
+      title: Security Policy
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          priority: { type: integer }
+          fromZone: { type: string }
+          toZone: { type: string }
+          action: { type: string, enum: [allow, deny, drop, reset-client, reset-server, reset-both] }
+          profile: { type: string, enum: [none, default, strict, custom] }
+          match:
+            type: object
+            properties:
+              src: { type: string }
+              dst: { type: string }
+              user: { type: string, description: "User-ID" }
+              app: { type: string, description: "App-ID" }
+              service: { type: string }
+              proto: { type: string, enum: [tcp, udp, icmp, any] }
+              port: { type: string }
+              urlCategory: { type: string }
+        required: [id, priority, action]
+    natRules:
+      type: array
+      title: NAT Policy
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          type: { type: string, enum: [source, destination, both] }
+          source: { type: string }
+          destination: { type: string }
+          translatedSrc: { type: string }
+          translatedDst: { type: string }

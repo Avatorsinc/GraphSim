@@ -1,0 +1,32 @@
+id: vendor.okta.idp
+name: Okta
+vendor: okta
+category: identity
+description: Okta Identity Platform — SSO, MFA, lifecycle management
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Okta
+  properties:
+    orgUrl:
+      type: string
+      title: Org URL
+      description: "e.g. https://company.okta.com"
+    plan:
+      type: string
+      title: Plan
+      enum: ["", "Single Sign-On", "Adaptive MFA", "Lifecycle Management", "Workforce Identity Cloud"]
+    features:
+      type: array
+      title: Features
+      items:
+        type: string
+        enum: ["SSO", "MFA", "Universal Directory", "Lifecycle Management", "API Access Management", "Advanced Server Access", "Device Trust"]
+      uniqueItems: true
+    note:
+      type: string
+      title: Note

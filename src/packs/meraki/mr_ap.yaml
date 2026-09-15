@@ -1,0 +1,29 @@
+id: vendor.meraki.mr
+name: Meraki MR Access Point
+vendor: meraki
+category: wireless
+description: Cisco Meraki MR wireless AP. SSIDs, WPA2/3, 802.1X to ISE, group policies.
+icon: meraki_mr
+capabilities: [wifi6, wifi6e, ssid, dot1x, group_policy]
+evaluator: l2_switch
+interfaces:
+  - { name: lan, type: ethernet }
+  - { name: wlan, type: wifi }
+defaultConfig:
+  ssids: []
+configSchema:
+  type: object
+  title: Meraki MR
+  properties:
+    ssids:
+      type: array
+      items:
+        type: object
+        properties:
+          name: { type: string }
+          enabled: { type: boolean, default: true }
+          vlan: { type: integer }
+          security: { type: string, enum: [open, wpa2_psk, wpa2_enterprise, wpa3_psk, wpa3_enterprise] }
+          radiusServer: { type: string, description: "RADIUS / ISE server reference" }
+          groupPolicy: { type: string }
+        required: [name, security]

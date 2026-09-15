@@ -1,0 +1,21 @@
+id: apps.defender
+name: Microsoft Defender
+vendor: microsoft
+category: apps
+description: Microsoft Defender for Endpoint / XDR
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Microsoft Defender
+  properties:
+    variant:
+      type: string
+      title: Variant
+      enum: ["", "Defender for Endpoint", "Defender for Office 365", "Defender for Identity", "Defender for Cloud Apps", "Defender XDR"]
+    note:
+      type: string
+      title: Note

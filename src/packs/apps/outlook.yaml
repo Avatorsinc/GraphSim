@@ -1,0 +1,21 @@
+id: apps.outlook
+name: Outlook / Exchange
+vendor: microsoft
+category: apps
+description: Microsoft Outlook / Exchange Online
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Outlook / Exchange
+  properties:
+    type:
+      type: string
+      title: Deployment
+      enum: ["", "Exchange Online", "Exchange On-Premises", "Hybrid"]
+    note:
+      type: string
+      title: Note

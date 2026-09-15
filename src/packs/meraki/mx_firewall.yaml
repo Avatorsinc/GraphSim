@@ -1,0 +1,68 @@
+id: vendor.meraki.mx
+name: Meraki MX Security Appliance
+vendor: meraki
+category: firewall
+description: Cisco Meraki MX (cloud-managed UTM/SD-WAN). L3/L7 rules, AutoVPN, content filtering.
+icon: meraki_mx
+capabilities: [stateful_fw, l3_fw, l7_fw, sdwan, autovpn, content_filter, ips]
+evaluator: stateful_firewall
+interfaces:
+  - { name: wan1, type: ethernet }
+  - { name: wan2, type: ethernet }
+  - { name: lan1, type: ethernet }
+  - { name: lan2, type: ethernet }
+defaultConfig:
+  defaultAction: deny
+  rules: []
+  l7Rules: []
+  contentFiltering: { categories: [], blockedUrls: [] }
+  autoVpn: { mode: hub_and_spoke, hubs: [] }
+configSchema:
+  type: object
+  title: Meraki MX
+  properties:
+    defaultAction: { type: string, enum: [allow, deny], default: deny }
+    rules:
+      type: array
+      title: L3 Outbound Rules
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          priority: { type: integer }
+          action: { type: string, enum: [allow, deny] }
+          comment: { type: string }
+          match:
+            type: object
+            properties:
+              proto: { type: string, enum: [tcp, udp, icmp, any] }
+              src: { type: string }
+              srcPort: { type: string }
+              dst: { type: string }
+              port: { type: string }
+        required: [id, priority, action]
+    l7Rules:
+      type: array
+      title: L7 Application Rules
+      items:
+        type: object
+        properties:
+          id: { type: string }
+          policy: { type: string, enum: [allow, deny] }
+          type:
+            type: string
+            enum: [application, applicationCategory, host, port, ipRange]
+          value: { type: string }
+        required: [id, policy, type, value]
+    contentFiltering:
+      type: object
+      title: Content Filtering
+      properties:
+        categories: { type: array, items: { type: string } }
+        blockedUrls: { type: array, items: { type: string } }
+    autoVpn:
+      type: object
+      title: AutoVPN
+      properties:
+        mode: { type: string, enum: [hub_and_spoke, mesh, none] }
+        hubs: { type: array, items: { type: string } }

@@ -1,0 +1,21 @@
+id: apps.database
+name: Database
+vendor: builtin
+category: apps
+description: Database server or service
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Database
+  properties:
+    engine:
+      type: string
+      title: Engine
+      enum: ["", "SQL Server", "PostgreSQL", "MySQL", "MariaDB", "MongoDB", "Redis", "CosmosDB", "DynamoDB", "Oracle", "SQLite"]
+    note:
+      type: string
+      title: Note

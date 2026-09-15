@@ -1,0 +1,21 @@
+id: apps.chrome
+name: Chrome Browser
+vendor: google
+category: apps
+description: Google Chrome browser
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  managed: false
+  note: ""
+configSchema:
+  type: object
+  title: Chrome Browser
+  properties:
+    managed:
+      type: boolean
+      title: Managed by policy
+    note:
+      type: string
+      title: Note

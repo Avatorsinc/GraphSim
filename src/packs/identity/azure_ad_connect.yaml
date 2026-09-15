@@ -1,0 +1,25 @@
+id: identity.azure_ad_connect
+name: Entra Connect / Cloud Sync
+vendor: microsoft
+category: identity
+description: Microsoft Entra Connect (Azure AD Connect) or Cloud Sync — hybrid identity sync
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Entra Connect
+  properties:
+    type:
+      type: string
+      title: Sync Type
+      enum: ["", "Entra Connect Sync (v2)", "Entra Cloud Sync", "Azure AD Connect v1 (legacy)"]
+    authMethod:
+      type: string
+      title: Sign-in Method
+      enum: ["", "Password Hash Sync (PHS)", "Pass-through Auth (PTA)", "Federation (ADFS)", "Certificate-based"]
+    note:
+      type: string
+      title: Note

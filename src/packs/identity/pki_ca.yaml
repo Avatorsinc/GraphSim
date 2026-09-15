@@ -1,0 +1,25 @@
+id: identity.pki_ca
+name: PKI / Certificate Authority
+vendor: builtin
+category: identity
+description: Certificate Authority — issues and manages digital certificates
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: PKI / CA
+  properties:
+    type:
+      type: string
+      title: CA Type
+      enum: ["", "Root CA", "Intermediate / Subordinate CA", "Issuing CA", "Online Responder (OCSP)"]
+    implementation:
+      type: string
+      title: Implementation
+      enum: ["", "AD Certificate Services", "EJBCA", "HashiCorp Vault PKI", "Let's Encrypt", "DigiCert", "Sectigo", "Other"]
+    note:
+      type: string
+      title: Note

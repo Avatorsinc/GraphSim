@@ -1,0 +1,21 @@
+id: vendor.okta.verify
+name: Okta Verify
+vendor: okta
+category: identity
+description: Okta Verify authenticator app — push notifications, OTP, FastPass
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Okta Verify
+  properties:
+    method:
+      type: string
+      title: Method
+      enum: ["", "Push Notification", "TOTP", "FastPass (Passwordless)", "Number Challenge"]
+    note:
+      type: string
+      title: Note

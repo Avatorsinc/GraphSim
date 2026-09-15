@@ -1,0 +1,27 @@
+id: generic.cloud_vpc
+name: VPC / VNet
+vendor: builtin
+category: cloud
+description: A virtual network — Azure VNet, AWS VPC, GCP VPC. Contains subnets and peering links.
+icon: cloud_vpc
+capabilities: [cloud, container, peering]
+evaluator: passthrough
+interfaces:
+  - { name: gw, type: virtual }
+defaultConfig:
+  cidr: 10.0.0.0/16
+  peerings: []
+configSchema:
+  type: object
+  title: VPC / VNet
+  properties:
+    cidr: { type: string, title: VNet CIDR }
+    peerings:
+      type: array
+      title: Peerings
+      items:
+        type: object
+        properties:
+          peerVpcId: { type: string, title: Peer VPC node id }
+          allowGatewayTransit: { type: boolean }
+        required: [peerVpcId]

@@ -1,0 +1,19 @@
+id: logic.and_gate
+name: AND
+vendor: builtin
+category: logic
+description: AND gate — all input paths must be satisfied
+evaluator: passthrough
+interfaces:
+  - { name: in1, type: virtual }
+  - { name: in2, type: virtual }
+  - { name: out, type: virtual }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: AND Gate
+  properties:
+    note:
+      type: string
+      title: Note

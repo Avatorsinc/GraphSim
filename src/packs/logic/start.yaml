@@ -1,0 +1,17 @@
+id: logic.start
+name: Start
+vendor: builtin
+category: logic
+description: Start terminal — beginning of a flow
+evaluator: passthrough
+interfaces:
+  - { name: out, type: virtual }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Start
+  properties:
+    note:
+      type: string
+      title: Note

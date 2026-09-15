@@ -1,0 +1,28 @@
+id: vendor.duo.security
+name: Cisco Duo
+vendor: cisco
+category: identity
+description: Cisco Duo Security — MFA, device trust, adaptive access
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Cisco Duo
+  properties:
+    plan:
+      type: string
+      title: Edition
+      enum: ["", "Free", "Essentials", "Advantage", "Premier"]
+    authMethods:
+      type: array
+      title: Auth Methods
+      items:
+        type: string
+        enum: ["Duo Push", "SMS", "Phone Call", "Hardware Token", "WebAuthn / FIDO2", "Verified Duo Push"]
+      uniqueItems: true
+    note:
+      type: string
+      title: Note

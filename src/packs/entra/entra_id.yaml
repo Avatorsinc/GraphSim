@@ -1,0 +1,31 @@
+id: vendor.entra.entra_id
+name: Microsoft Entra ID
+vendor: microsoft
+category: identity
+description: Microsoft Entra ID (formerly Azure AD) — cloud identity provider, SSO, MFA, directory
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Entra ID
+  properties:
+    tenantId:
+      type: string
+      title: Tenant ID
+    plan:
+      type: string
+      title: License
+      enum: ["", "Free", "P1", "P2", "Entra ID Governance"]
+    features:
+      type: array
+      title: Enabled Features
+      items:
+        type: string
+        enum: ["SSO", "MFA", "Conditional Access", "PIM", "Access Reviews", "Entitlement Management", "Identity Protection", "Passwordless"]
+      uniqueItems: true
+    note:
+      type: string
+      title: Note

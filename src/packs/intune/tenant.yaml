@@ -1,0 +1,34 @@
+id: vendor.intune.tenant
+name: Intune Tenant
+vendor: microsoft
+category: mdm
+description: Microsoft Intune tenant root. Container for Autopilot, configuration profiles, compliance policies, app protection, update rings.
+icon: intune
+capabilities: [mdm, mam, autopilot, defender_for_endpoint]
+evaluator: passthrough
+interfaces: []
+defaultConfig:
+  tenantName: ""
+  tenantId: ""
+  region: global
+  scopeTags: [Default]
+configSchema:
+  type: object
+  title: Intune Tenant
+  properties:
+    tenantName: { type: string, title: Tenant Name }
+    tenantId: { type: string, title: Tenant ID (GUID) }
+    region: { type: string, enum: [global, us_gov, china, germany], default: global }
+    scopeTags:
+      type: array
+      title: RBAC Scope Tags
+      items: { type: string }
+    rbacRoles:
+      type: array
+      title: RBAC Role Assignments
+      items:
+        type: object
+        properties:
+          role: { type: string, enum: [Global Admin, Intune Admin, Helpdesk Operator, Application Manager, Endpoint Security Manager, Read Only Operator, Custom] }
+          assignedTo: { type: string, description: "User / Group" }
+          scopeTags: { type: array, items: { type: string } }

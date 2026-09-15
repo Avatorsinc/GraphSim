@@ -1,0 +1,25 @@
+id: apps.web_app
+name: Web App
+vendor: builtin
+category: apps
+description: Generic web application
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  url: ""
+  note: ""
+configSchema:
+  type: object
+  title: Web App
+  properties:
+    url:
+      type: string
+      title: URL
+    technology:
+      type: string
+      title: Technology
+      enum: ["", "React", "Angular", "Vue", "ASP.NET", "Django", "Rails", "PHP", "WordPress", "Custom"]
+    note:
+      type: string
+      title: Note

@@ -1,0 +1,12 @@
+id: vendor.intune.mdm
+name: Intune (legacy)
+vendor: microsoft
+category: mdm
+description: Legacy minimal Intune node — prefer Intune Tenant + per-policy nodes.
+evaluator: passthrough
+interfaces: []
+defaultConfig: {}
+configSchema:
+  type: object
+  properties:
+    note: { type: string, default: "Use the new Intune Tenant + policy nodes instead." }

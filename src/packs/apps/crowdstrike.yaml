@@ -1,0 +1,21 @@
+id: apps.crowdstrike
+name: CrowdStrike Falcon
+vendor: crowdstrike
+category: apps
+description: CrowdStrike Falcon endpoint protection / EDR
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: CrowdStrike Falcon
+  properties:
+    module:
+      type: string
+      title: Module
+      enum: ["", "Prevent", "Insight", "Discover", "Spotlight", "Identity Protection"]
+    note:
+      type: string
+      title: Note

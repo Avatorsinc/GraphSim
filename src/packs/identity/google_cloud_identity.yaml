@@ -1,0 +1,21 @@
+id: identity.google_identity
+name: Google Cloud Identity
+vendor: google
+category: identity
+description: Google Cloud Identity / Workspace identity — SSO, directory, device management
+evaluator: passthrough
+interfaces:
+  - { name: eth0, type: ethernet }
+defaultConfig:
+  note: ""
+configSchema:
+  type: object
+  title: Google Cloud Identity
+  properties:
+    plan:
+      type: string
+      title: Edition
+      enum: ["", "Free", "Premium"]
+    note:
+      type: string
+      title: Note
