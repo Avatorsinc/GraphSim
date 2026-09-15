@@ -2,6 +2,8 @@
 
 A schema-driven topology editor and **logical reachability simulator** for networks, identity and device management. Drag devices onto a canvas, wire them up across on-prem and cloud, give them rules, routes and policies, then run a flow and get a hop-by-hop verdict trace.
 
+**[▶ Try it in your browser](https://avatorsinc.github.io/GraphSim/)** — no install needed.
+
 ![GraphSim running a flow through the example topology](docs/screenshots/04-simulate-allowed.png)
 
 ## Quick start
@@ -9,7 +11,7 @@ A schema-driven topology editor and **logical reachability simulator** for netwo
 Requires [Node.js](https://nodejs.org/) 20.19+ or 22.12+.
 
 ```bash
-git clone https://github.com/<your-username>/GraphSim.git
+git clone https://github.com/Avatorsinc/GraphSim.git
 cd GraphSim
 npm install
 npm run dev
